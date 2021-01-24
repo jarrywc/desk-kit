@@ -21,6 +21,24 @@ GPIO.setup(motorA1, GPIO.OUT)
 GPIO.setup(motorB0, GPIO.OUT)
 GPIO.setup(motorB1, GPIO.OUT)
 
+# Primary control Method
+def motorControl(motorA, motorB, down):
+    if motorA and motorB:
+        if down:
+            dualMotor_Down()
+        else:
+            dualMotor_Up()
+    elif motorA:
+        if down:
+            motorA_Down()
+        else:
+            motorA_Up()
+    elif motorB:
+        if down:
+            motorB_Down()
+        else:
+            motorB_Up()
+
 
 def powerOn():
     print("Motors Power On")
