@@ -5,7 +5,7 @@ This repo is designed to provide content to setup a standing desk to be controll
 
 
 
-##Setup 
+## Setup 
 Hardware needed:
 - RaspberryPi Zero W
 - Standing Desk with Linear actuator (with 24v or 12v)
@@ -13,3 +13,5 @@ Hardware needed:
 - Relay control board that can be controller by pulling high/low
 - 24v / 12v power supply
 - 
+
+> ee 
