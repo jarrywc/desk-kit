@@ -6,7 +6,7 @@ import adafruit_ads1x15.ads1115 as ADS
 from adafruit_ads1x15.analog_in import AnalogIn
 
 i2c = busio.I2C(board.SCL, board.SDA)
-# Setup the Potentiameter (this should already be in the desk actuators)
+# Setup the Potentiometer (this should already be in the desk actuators)
 ads = ADS.ADS1115(i2c)
 chanLeftA = AnalogIn(ads, ADS.P0)
 chanLeftB = AnalogIn(ads, ADS.P1)
