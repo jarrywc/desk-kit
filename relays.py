@@ -4,123 +4,130 @@ import RPi.GPIO as GPIO
 pRelayPin = 5  # This is BCM 5, Wiring 21, Onboard 25
 
 # Setup the Motor Relay Pins
-motorA0 = 6
-motorA1 = 13
-motorB0 = 19
-motorB1 = 26
-# Status Booleans
-power = False
-dirA_D = True
-dirB_D = True
-
+MA0 = 6
+MA1 = 13
+MB0 = 19
+MB1 = 26
+global pwr, dir_a, dir_b
+pwr = False
+dir_a = True
+dir_b = True
 # Set Output Pins
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pRelayPin, GPIO.OUT)
-GPIO.setup(motorA0, GPIO.OUT)
-GPIO.setup(motorA1, GPIO.OUT)
-GPIO.setup(motorB0, GPIO.OUT)
-GPIO.setup(motorB1, GPIO.OUT)
+GPIO.setup(MA0, GPIO.OUT)
+GPIO.setup(MA1, GPIO.OUT)
+GPIO.setup(MB0, GPIO.OUT)
+GPIO.setup(MB1, GPIO.OUT)
+
+
+def setup_globals():
+    global pwr, dir_a, dir_b
+    pwr = False
+    dir_a = True
+    dir_b = True
+
 
 # Primary control Method
-def motorControl(motorA, motorB, down):
-    if motorA and motorB:
+def motor_control(motor_a, motor_b, down):
+    if motor_a and motor_b:
         if down:
-            dualMotor_Down()
+            dual_motor_down()
         else:
-            dualMotor_Up()
-    elif motorA:
+            dual_motor_up()
+    elif motor_a:
         if down:
-            motorA_Down()
+            motor_a_down()
         else:
-            motorA_Up()
-    elif motorB:
+            motor_a_down()
+    elif motor_b:
         if down:
-            motorB_Down()
+            motor_b_down()
         else:
-            motorB_Up()
+            motor_b_up()
 
 
-def powerOn():
+def power_on():
     print("Motors Power On")
-    global power
-    power = True
+    global pwr
+    pwr = True
     GPIO.output(pRelayPin, GPIO.HIGH)
 
 
-def powerOff():
+def power_off():
     print("Motors Power On")
-    global power
-    power = False
+    global pwr
+    pwr = False
     GPIO.output(pRelayPin, GPIO.LOW)
 
 
-def motorA_Up():
+def motor_a_up():
     print("Motor A Up")
-    if power and dirA_D:
-        powerOff()
-        GPIO.output(motorA0, GPIO.HIGH)
-        GPIO.output(motorA1, GPIO.HIGH)
-        powerOn()
-        global dirA_D
-        dirA_D = False
+    if pwr and dir_a:
+        power_off()
+        GPIO.output(MA0, GPIO.HIGH)
+        GPIO.output(MA1, GPIO.HIGH)
+        power_on()
+        global dir_a
+        dir_a = False
     else:
-        GPIO.output(motorA0, GPIO.HIGH)
-        GPIO.output(motorA1, GPIO.HIGH)
-        powerOn()
+        GPIO.output(MA0, GPIO.HIGH)
+        GPIO.output(MA1, GPIO.HIGH)
+        power_on()
 
 
-def motorB_Up():
+def motor_b_up():
     print("Motor B Up")
-    if power and dirB_D:
-        powerOff()
-        GPIO.output(motorB0, GPIO.HIGH)
-        GPIO.output(motorB1, GPIO.HIGH)
-        powerOn()
-        global dirB_D
-        dirB_D = False
+    if pwr and dir_b:
+        power_off()
+        GPIO.output(MB0, GPIO.HIGH)
+        GPIO.output(MB1, GPIO.HIGH)
+        power_on()
+        global dir_b
+        dir_b = False
     else:
-        GPIO.output(motorB0, GPIO.HIGH)
-        GPIO.output(motorB1, GPIO.HIGH)
-        powerOn()
+        GPIO.output(MB0, GPIO.HIGH)
+        GPIO.output(MB1, GPIO.HIGH)
+        power_on()
 
 
-def motorA_Down():
+def motor_a_down():
     print("Motor A Down")
-    if power and not dirA_D:
-        powerOff()
-        GPIO.output(motorA0, GPIO.LOW)
-        GPIO.output(motorA1, GPIO.LOW)
-        powerOn()
-        global dirA_D
-        dirA_D = True
+    if pwr and not dir_a:
+        power_off()
+        GPIO.output(MA0, GPIO.LOW)
+        GPIO.output(MA1, GPIO.LOW)
+        power_on()
+        global dir_a
+        dir_a = True
     else:
-        GPIO.output(motorA0, GPIO.LOW)
-        GPIO.output(motorA1, GPIO.LOW)
-        powerOn()
+        GPIO.output(MA0, GPIO.LOW)
+        GPIO.output(MA1, GPIO.LOW)
+        power_on()
 
 
-def motorB_Down():
+def motor_b_down():
     print("Motor B Down")
-    if power and not dirB_D:
-        powerOff()
-        GPIO.output(motorB0, GPIO.LOW)
-        GPIO.output(motorB1, GPIO.LOW)
-        powerOn()
-        global dirB_D
-        dirB_D = True
+    if pwr and not dir_b:
+        power_off()
+        GPIO.output(MB0, GPIO.LOW)
+        GPIO.output(MB1, GPIO.LOW)
+        power_on()
+        global dir_b
+        dir_b = True
     else:
-        GPIO.output(motorB0, GPIO.LOW)
-        GPIO.output(motorB1, GPIO.LOW)
-        powerOn()
+        GPIO.output(MB0, GPIO.LOW)
+        GPIO.output(MB1, GPIO.LOW)
+        power_on()
 
 
-def dualMotor_Up():
+def dual_motor_up():
     print("Dual Motor Up")
-    motorA_Up()
-    motorB_Up()
+    motor_a_up()
+    motor_b_up()
 
 
-def dualMotor_Down():
+def dual_motor_down():
     print("Dual Motor Up")
-    motorA_Down()
-    motorB_Down()
+    motor_a_down()
+    motor_b_down()
