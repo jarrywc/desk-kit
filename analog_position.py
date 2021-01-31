@@ -8,12 +8,11 @@ from adafruit_ads1x15.analog_in import AnalogIn
 
 i2c = busio.I2C(board.SCL, board.SDA)
 # Setup the Potentiometer (this should already be in the desk actuators)
-GPIO.setmode(GPIO.BCM)
-hall_A0 = 22
-hall_A1 = 27
-hall_B0 = 24
-hall_B1 = 23
-
+ads = ADS.ADS1115(i2c)
+chanLeftA = AnalogIn(ads, ADS.P0)
+chanLeftB = AnalogIn(ads, ADS.P1)
+chanRightA = AnalogIn(ads, ADS.P2)
+chanRightB = AnalogIn(ads, ADS.P3)
 
 
 def printI2C():

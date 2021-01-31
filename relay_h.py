@@ -1,7 +1,7 @@
 import RPi.GPIO as GPIO
 import time
-import position
-import export_position
+#import position
+#import export_position
 
 # Setup the Power Relay Pin
 pRelayPin = 5  # This is BCM 5, Wiring 21, Onboard 25
@@ -50,7 +50,7 @@ def motor_control(motor_a, motor_b, down, duration):
         else:
             set_ma(True)
     GPIO.output(pRelayPin, GPIO.HIGH)
-    position.sleep_writer(duration)
+    #position.sleep_writer(duration)
     print("Motors Power Off")
     GPIO.output(pRelayPin, GPIO.LOW)
     GPIO.cleanup()
